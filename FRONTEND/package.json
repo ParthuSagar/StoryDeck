@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "package.json",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,8 +10,22 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@hugeicons/core-free-icons": "^2.0.0",
+    "@hugeicons/react": "^1.1.1",
+    "@mui/icons-material": "^7.3.5",
+    "@mui/material": "^7.3.5",
+    "alpha": "^1.0.0",
+    "axios": "^1.13.2",
+    "firebase": "^12.6.0",
+    "hugeicons-react": "^0.3.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "react-hot-toast": "^2.6.0",
+    "react-loading": "^2.0.3",
+    "react-router-dom": "^7.9.6",
+    "react-spinners": "^0.17.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
