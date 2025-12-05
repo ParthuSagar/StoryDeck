@@ -16,7 +16,7 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 5000;
 
 // Configure CORS for the frontend app (allow credentials and required methods/headers)
-const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:5173'
+const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'https://story-deck-puce.vercel.app'
 
 app.use(cors({
   origin: CLIENT_ORIGIN,
