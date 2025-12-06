@@ -17,23 +17,26 @@ const PORT = process.env.PORT || 5000;
 
 
 // Configure CORS for the frontend app (allow credentials and required methods/headers)
-const CLIENT_ORIGIN = [
-  'http://localhost:5173',
-  'https://story-deck-black.vercel.app'
-]
+const CLIENT_ORIGIN  = [
+  process.env.CLIENT_ORIGIN,
+  process.env.CLIENT_ORIGIN_2
+];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("CORS blocked: " + origin));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
-}));
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || CLIENT_ORIGIN.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.log("❌ CORS BLOCKED:", origin);
+        callback(new Error("CORS blocked: " + origin));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Accept"],
+  })
+);
 
 // Enable preflight for all routes
 app.use(express.json());
