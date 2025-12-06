@@ -29,7 +29,6 @@ import { useToast } from '../components/Toast/useToast';
 
 const Register = () => {
   const navigate = useNavigate()
-  const { isDarkMode } = useTheme()
   const { showSuccess, showError } = useToast();
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
