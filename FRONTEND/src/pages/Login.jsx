@@ -17,7 +17,6 @@ import {
   useTheme,
   Link
 } from '@mui/material';
-import Logo from '../assets/StoryDeck.svg'
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import {
   GoogleIcon,
