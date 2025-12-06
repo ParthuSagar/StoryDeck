@@ -15,15 +15,25 @@ const server = http.createServer(app);
 
 const PORT = process.env.PORT || 5000;
 
+
 // Configure CORS for the frontend app (allow credentials and required methods/headers)
-const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'https://story-deck-black.vercel.app'
+const CLIENT_ORIGIN = [
+  'http://localhost:5173',
+  'https://story-deck-black.vercel.app'
+]
 
 app.use(cors({
-  origin: CLIENT_ORIGIN,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS blocked: " + origin));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
-}))
+}));
 
 // Enable preflight for all routes
 app.use(express.json());
@@ -69,10 +79,10 @@ io.on('connection', (socket) => {
     if (!userId) return;
     socket.join(userId);
     onlineUsers.set(userId, socket.id);
-    
+
     // Broadcast user online status
     io.emit('userOnline', { userId, socketId: socket.id });
-    
+
     socket.emit('connected');
     console.log(`User ${userId} came online`);
   });
