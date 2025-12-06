@@ -18,7 +18,6 @@ import {
 import { useTheme } from '../hooks/useTheme'
 import Logo from '../assets/StoryDeck.svg'
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import Logo from '../assets/StoryDeck.svg'
 import {
   GoogleIcon,
   Facebook01Icon,

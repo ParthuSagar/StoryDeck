@@ -13,7 +13,6 @@ import {
   useMediaQuery,
   useTheme as useMuiTheme,
 } from '@mui/material';
-import Logo from '../../assets/StoryDeck.svg'
 import { useTheme } from '../../hooks/useTheme';
 import Logo from '../../assets/StoryDeck.svg'
 import {
