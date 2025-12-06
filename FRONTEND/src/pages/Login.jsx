@@ -16,9 +16,9 @@ import {
   useTheme,
   Link
 } from '@mui/material';
+import Logo from '../assets/StoryDeck.svg'
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import {
-  InstagramIcon,
   GoogleIcon,
   Facebook01Icon,
   EyeIcon,
@@ -138,7 +138,7 @@ const Login = () => {
           {/* Logo */}
           <Box sx={{ textAlign: 'center', mb: 3 }}>
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1, mb: 1 }}>
-              <InstagramIcon size={50} color={isDarkMode ? '#ef5350' : '#d32f2f'} />
+              <img src={Logo} alt='StoryDeck' width={50} />
               <Typography sx={{ fontSize: 35 }}>STORYDECK</Typography>
             </Box>
             <Typography variant="body1" sx={{ color: 'text.secondary' }}>

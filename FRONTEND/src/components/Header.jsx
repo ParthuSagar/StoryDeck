@@ -15,8 +15,8 @@ import {
   Divider
 } from '@mui/material'
 import { useTheme } from '../hooks/useTheme'
+import Logo from '../assets/StoryDeck.svg'
 import {
-  InstagramIcon,
   Sun02Icon,
   GibbousMoonIcon,
   MessengerIcon,
@@ -101,7 +101,7 @@ const Header = ({ userName = 'Abhinav Khare' }) => {
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           {isMobile && (
             <>
-              <InstagramIcon size={30} color={isDarkMode ? '#ef5350' : '#d32f2f'} />
+              <img src={Logo} alt='StoryDeck' width={30} />
               <Typography sx={{ fontSize: 20, fontWeight: 500, ml: 0, color: 'error.main' }}>
                 STORYDECK
               </Typography>

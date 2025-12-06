@@ -14,13 +14,13 @@ import {
   useTheme as useMuiTheme,
 } from '@mui/material';
 import { useTheme } from '../../hooks/useTheme';
+import Logo from '../../assets/StoryDeck.svg'
 import {
   Home11Icon,
   MessengerIcon,
   AccountSetting03Icon,
   PlusSignIcon,
   Logout01Icon,
-  InstagramIcon
 } from "hugeicons-react";
 import axiosInstance from '../../api/axiosInstance';
 import { useToast } from '../Toast/useToast';
@@ -114,7 +114,7 @@ const Sidebar = ({ open, onClose }) => {
           gap: 2,
         }}
       >
-        <InstagramIcon size={40} color={isDarkMode ? '#ef5350' : '#d32f2f'} />
+        <img src={Logo} alt='StoryDeck' width={30} />
         <Box sx={{
           display: 'flex'
         }}>
