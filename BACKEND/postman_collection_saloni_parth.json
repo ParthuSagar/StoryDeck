@@ -1,0 +1,489 @@
+{
+  "info": {
+    "name": "StoryDeck Messaging - Saloni & Parth Complete Guide",
+    "_postman_id": "storydeck-messaging-2025",
+    "description": "Complete step-by-step messaging API testing with Saloni & Parth",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "saloni_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "saloni_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "parth_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "parth_id",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "PHASE 1: USER REGISTRATION",
+      "item": [
+        {
+          "name": "1.1 Register Saloni",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Saloni Sagar\",\n  \"username\": \"Its_Saloni_@7777\",\n  \"email\": \"saloni@example.com\",\n  \"password\": \"Saloni@123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Register Saloni as first user\n\n**Instructions:**\n1. Send this request\n2. Copy `token` from response → set as `saloni_token` variable\n3. Copy `user.id` from response → set as `saloni_id` variable"
+          },
+          "response": []
+        },
+        {
+          "name": "1.2 Register Parth",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Parth Sagar\",\n  \"username\": \"Its_Parth_@7777\",\n  \"email\": \"parth@example.com\",\n  \"password\": \"Parth@123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Register Parth as second user\n\n**Instructions:**\n1. Send this request\n2. Copy `token` from response → set as `parth_token` variable\n3. Copy `user.id` from response → set as `parth_id` variable"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PHASE 2: VIEW USERS",
+      "item": [
+        {
+          "name": "2.1 Get All Users (as Saloni)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{saloni_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "description": "Verify both Saloni and Parth exist in database"
+          },
+          "response": []
+        },
+        {
+          "name": "2.2 Get Parth's Profile (viewed by Saloni)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{saloni_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/{{parth_id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{parth_id}}"
+              ]
+            },
+            "description": "Saloni views Parth's public profile"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PHASE 3: SEND MESSAGES",
+      "item": [
+        {
+          "name": "3.1 Saloni Sends Message to Parth",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{saloni_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"to\": \"{{parth_id}}\",\n  \"text\": \"Hi Parth! How are you doing?\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/messages",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "messages"
+              ]
+            },
+            "description": "Saloni sends first message to Parth\n\nResponse includes:\n- `_id`: message ID\n- `isRead: false` (Parth hasn't read it)\n- `readAt: null` (not read yet)\n- `sentAgo`: relative time"
+          },
+          "response": []
+        },
+        {
+          "name": "3.2 Parth Sends Message Back",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{parth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"to\": \"{{saloni_id}}\",\n  \"text\": \"Hey Saloni! I'm doing great, thanks for asking! 😊\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/messages",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "messages"
+              ]
+            },
+            "description": "Parth replies to Saloni"
+          },
+          "response": []
+        },
+        {
+          "name": "3.3 Saloni Sends Another Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{saloni_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"to\": \"{{parth_id}}\",\n  \"text\": \"That's awesome! Want to grab coffee later?\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/messages",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "messages"
+              ]
+            },
+            "description": "Saloni continues the conversation"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PHASE 4: VIEW CHAT HISTORY",
+      "item": [
+        {
+          "name": "4.1 Saloni Opens Chat with Parth (Auto-Marks as Read)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{saloni_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/messages/{{parth_id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "messages",
+                "{{parth_id}}"
+              ]
+            },
+            "description": "Saloni opens conversation - all unread from Parth auto-marked as read\n\nResponse includes:\n- Full chat history (all messages between them)\n- `isRead` status for each message\n- `sentAgo`: \"3 minutes ago\", \"2 hours ago\", etc\n- `readAgo`: when message was read (null if unread)"
+          },
+          "response": []
+        },
+        {
+          "name": "4.2 Parth Opens Chat with Saloni (Auto-Marks as Read)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{parth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/messages/{{saloni_id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "messages",
+                "{{saloni_id}}"
+              ]
+            },
+            "description": "Parth opens conversation - unread from Saloni are marked as read"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PHASE 5: UNREAD MANAGEMENT",
+      "item": [
+        {
+          "name": "5.1 Saloni's Unread Count",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{saloni_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/messages/unread/count",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "messages",
+                "unread",
+                "count"
+              ]
+            },
+            "description": "Get total number of unread messages for Saloni\n\nResponse: { \"unreadCount\": 0 }"
+          },
+          "response": []
+        },
+        {
+          "name": "5.2 Parth's Unread Count",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{parth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/messages/unread/count",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "messages",
+                "unread",
+                "count"
+              ]
+            },
+            "description": "Get total number of unread messages for Parth"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PHASE 6: CONVERSATION LIST",
+      "item": [
+        {
+          "name": "6.1 Saloni's Conversations (with Unread Badges)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{saloni_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/messages/conversations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "messages",
+                "conversations"
+              ]
+            },
+            "description": "Get list of all conversations with:\n- User info (name, username, avatar)\n- Last message preview\n- Unread count\n- Timestamps (sentAgo, readAgo)"
+          },
+          "response": []
+        },
+        {
+          "name": "6.2 Parth's Conversations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{parth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/messages/conversations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "messages",
+                "conversations"
+              ]
+            },
+            "description": "Get Parth's conversation list"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PHASE 7: MANUAL READ MARKING (Optional)",
+      "item": [
+        {
+          "name": "7.1 Mark All from Saloni as Read (by Parth)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{parth_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/messages/markAsRead/{{saloni_id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "messages",
+                "markAsRead",
+                "{{saloni_id}}"
+              ]
+            },
+            "description": "Mark all unread messages from Saloni as read (bulk operation)\n\nResponse: { \"success\": true, \"updatedCount\": 2 }"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

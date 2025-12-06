@@ -16,6 +16,7 @@ import {
   IconButton,
 } from '@mui/material'
 import { useTheme } from '../hooks/useTheme'
+import Logo from '../assets/StoryDeck.svg'
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import Logo from '../assets/StoryDeck.svg'
 import {
