@@ -15,13 +15,13 @@ import {
 } from '@mui/material';
 import Logo from '../../assets/StoryDeck.svg'
 import { useTheme } from '../../hooks/useTheme';
+import Logo from '../../assets/StoryDeck.svg'
 import {
   Home11Icon,
   MessengerIcon,
   AccountSetting03Icon,
   PlusSignIcon,
   Logout01Icon,
-  InstagramIcon
 } from "hugeicons-react";
 import axiosInstance from '../../api/axiosInstance';
 import { useToast } from '../Toast/useToast';
@@ -115,7 +115,7 @@ const Sidebar = ({ open, onClose }) => {
           gap: 2,
         }}
       >
-        <img src={Logo} alt="Logo" width={50} />
+        <img src={Logo} alt='StoryDeck' width={30} />
         <Box sx={{
           display: 'flex'
         }}>

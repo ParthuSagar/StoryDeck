@@ -18,8 +18,8 @@ import {
 import { useTheme } from '../hooks/useTheme'
 import Logo from '../assets/StoryDeck.svg'
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import Logo from '../assets/StoryDeck.svg'
 import {
-  InstagramIcon,
   GoogleIcon,
   Facebook01Icon,
   EyeIcon,
@@ -158,7 +158,7 @@ const Register = () => {
                 mb: 2,
               }}
             >
-               <img src={Logo} alt="Logo" width={50} />
+               <img src={Logo} alt='StoryDeck' width={50} />
               <Typography
                 sx={{
                   fontSize: 35
