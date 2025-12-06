@@ -13,6 +13,7 @@ import {
   useMediaQuery,
   useTheme as useMuiTheme,
 } from '@mui/material';
+import Logo from '../../assets/StoryDeck.svg'
 import { useTheme } from '../../hooks/useTheme';
 import {
   Home11Icon,
@@ -114,7 +115,7 @@ const Sidebar = ({ open, onClose }) => {
           gap: 2,
         }}
       >
-        <InstagramIcon size={40} color={isDarkMode ? '#ef5350' : '#d32f2f'} />
+        <img src={Logo} alt="Logo" width={50} />
         <Box sx={{
           display: 'flex'
         }}>

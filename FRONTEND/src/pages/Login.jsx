@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../assets/StoryDeck.svg'
 import {
   Box,
   Container,
@@ -18,7 +19,6 @@ import {
 } from '@mui/material';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import {
-  InstagramIcon,
   GoogleIcon,
   Facebook01Icon,
   EyeIcon,
@@ -33,7 +33,6 @@ import { useToast } from '../components/Toast/useToast';
 const Login = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const isDarkMode = theme.palette.mode === 'dark';
   const { showSuccess, showError } = useToast();
   const [loading, setLoading] = useState(false);
   const [submitDisabled, setSubmitDisabled] = useState(false);
@@ -120,15 +119,15 @@ const Login = () => {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'background.paper',
-        py: 4,
-        px: 2,
+        py: 1,
+        px: 1,
       }}
     >
       <Container maxWidth="xxl">
         <Card
           sx={{
             borderRadius: 2,
-            p: 4,
+            p: 1,
             maxWidth: 480,
             mx: 'auto',
             boxShadow: 0,
@@ -138,7 +137,7 @@ const Login = () => {
           {/* Logo */}
           <Box sx={{ textAlign: 'center', mb: 3 }}>
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1, mb: 1 }}>
-              <InstagramIcon size={50} color={isDarkMode ? '#ef5350' : '#d32f2f'} />
+             <img src={Logo} alt="Logo" width={50} />
               <Typography sx={{ fontSize: 35 }}>STORYDECK</Typography>
             </Box>
             <Typography variant="body1" sx={{ color: 'text.secondary' }}>

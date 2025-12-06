@@ -16,6 +16,7 @@ import {
   IconButton,
 } from '@mui/material'
 import { useTheme } from '../hooks/useTheme'
+import Logo from '../assets/StoryDeck.svg'
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import {
   InstagramIcon,
@@ -157,8 +158,7 @@ const Register = () => {
                 mb: 2,
               }}
             >
-              <InstagramIcon size={50} color={isDarkMode ? '#ef5350' : '#d32f2f'}
-              />
+               <img src={Logo} alt="Logo" width={50} />
               <Typography
                 sx={{
                   fontSize: 35
