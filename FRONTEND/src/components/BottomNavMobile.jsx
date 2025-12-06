@@ -1,133 +1,146 @@
-import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
     Box,
     Typography,
     useTheme as useMuiTheme,
     useMediaQuery,
-    Avatar
-} from '@mui/material';
-import {
-  Home11Icon,
-  MessengerIcon,
-  AccountSetting03Icon,
-} from "hugeicons-react";
-import { useTheme } from '../hooks/useTheme'; // Assuming you have a useTheme hook
+} from "@mui/material";
 
-// Define the navigation items matching the image icons/labels
+import {
+    Home11Icon,
+    MessengerIcon,
+    AccountSetting03Icon,
+} from "hugeicons-react";
+
+import { useTheme } from "../hooks/useTheme";
+
 const bottomNavItems = [
-    { label: 'Home', icon: Home11Icon, path: '/home' }, // Using a generic profile path
-    { label: 'Chats', icon: MessengerIcon, path: '/chats' },
-    { label: 'Profile', icon: AccountSetting03Icon, path: '/settings' },
+    { label: "Home", icon: Home11Icon, path: "/home" },
+    { label: "Chats", icon: MessengerIcon, path: "/chats" },
+    { label: "Profile", icon: AccountSetting03Icon, path: "/settings" },
 ];
 
 const BottomNavMobile = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const muiTheme = useMuiTheme();
-    const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
+    const isMobile = useMediaQuery(muiTheme.breakpoints.down("md"));
     const { isDarkMode } = useTheme();
 
-    // Function to determine if an item is active
-    const getIsActive = (path) => location.pathname === path;
-
-    // Render this component only on mobile screens
-    if (!isMobile) {
-        return null;
-    }
-
+    if (!isMobile) return null;
 
     return (
         <Box
             sx={{
-                // Fixed positioning at the bottom center
-                position: 'fixed',
-                bottom: 0,
+                position: "fixed",
+                bottom: 20,
                 left: 0,
                 right: 0,
-                zIndex: 1100, // Above content, below high z-index modals
-
-                // Ensures content doesn't get hidden under the navigation bar
-                paddingBottom: muiTheme.spacing(1.5),
-
-                // Background and rounded box style matching the image
-                backgroundColor: 'transparent',
-                display: 'flex',
-                justifyContent: 'center',
-
-                // This box holds the rounded content container
-                pointerEvents: 'none', // Allows clicking through the transparent container background
+                display: "flex",
+                justifyContent: "center",
+                zIndex: 1200,
+                pointerEvents: "none",
             }}
         >
             <Box
+                className="bottom-nav-container"
                 sx={{
-                    pointerEvents: 'auto', // Re-enable pointer events for the items
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                    alignItems: 'center',
-                    height: 70, // Height of the nav bar container
-
-                    // Styling for the floating card effect (matching the image)
-                    width: '100%',
-                    maxWidth: 600,
-                    borderRadius: '35px',
-                    backgroundColor: 'background.paper',
-                    border: `1px solid ${muiTheme.palette.divider}`,
+                    pointerEvents:"painted",
+                    width: "92%",
+                    maxWidth: 420,
+                    cursor: "pointer",
+                    backgroundColor: isDarkMode ? "#0E0E0E" : "rgba(255,255,255,0.85)",
+                    padding: "25px 1px",
+                    borderRadius: "40px",
+                    display: "flex",
+                    justifyContent: "center",
+                    boxShadow:
+                        isDarkMode
+                            ? "0 8px 25px rgba(255,255,255,0.08)"
+                            : "0 8px 25px rgba(0,0,0,0.18)",
+                    backdropFilter: "blur(40px)",
+                    border: isDarkMode ? "4px solid #222" : "4px solid #ddd",
+                    transition: "background-color 0.10s ease",
                 }}
             >
                 {bottomNavItems.map((item) => {
-                    const isActive = getIsActive(item.path);
-                    const IconComponent = item.icon;
-
-                    // Determine color based on active state
-                    const iconColor = isActive ? muiTheme.palette.primary.main : muiTheme.palette.text.primary;
-                    
+                    const isActive = location.pathname === item.path;
+                    const Icon = item.icon;
 
                     return (
                         <Box
                             key={item.label}
                             onClick={() => navigate(item.path)}
+                            className="nav-item"
                             sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                flexGrow: 1,
-                                cursor: 'pointer',
-                                p: 0.5,
-                                transition: 'color 0.2s ease',
+                                flex: 1,
+                                mx: 1,
+                                cursor: "pointer",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                position: "relative",
                             }}
                         >
-                            {/* Active Tab Indicator (the small blue line above "Bookmark" in the image) */}
+                            {/* Animated pill */}
                             <Box
+                                className="active-pill"
                                 sx={{
-                                    height: '2px',
-                                    width: '15%',
-                                    backgroundColor: isActive ? muiTheme.palette.primary.main : 'transparent',
-                                    borderRadius: '10%',
-                                    position: 'absolute',
-                                    top: 0,
-                                    transition: 'background-color 0.2s ease',
+                                    position: "absolute",
+                                    width: isActive ? "85%" : "0%",
+                                    height: isActive ? "44px" : "0px",
+                                    backgroundColor: isDarkMode ? "#fff" : "#0E0E0E",
+                                    borderRadius: "30px",
+                                    transition: "all 0.50s cubic-bezier(.4,0,.2,1)",
+                                    zIndex: 1,
                                 }}
                             />
 
-                            {/* Icon */}
-                            <IconComponent size={26} color={iconColor} strokeWidth={isActive ? 2 : 1.5} />
-
-                            {/* Label */}
-                            <Typography
+                            {/* Icon + Text */}
+                            <Box
+                                className="nav-item-content"
                                 sx={{
-                                    fontSize: 12,
-                                    fontWeight: isActive ? 600 : 500,
-                                    color: iconColor,
-                                    mt: 0.5,
-                                    transition: 'color 0.2s ease',
-                                    whiteSpace: 'nowrap',
-                                    letterSpacing : 1
+                                    position: "relative",
+                                    zIndex: 2,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: isActive ? "10px" : "0px",
+                                    px: isActive ? "12px" : "0px",
+                                    transition: "all 0.35s",
+                                    transform: isActive ? "scale(1.05)" : "scale(1)",
                                 }}
                             >
-                                {item.label}
-                            </Typography>
+                                <Icon
+                                    size={24}
+                                    className={isActive ? "icon-active" : "icon-default"}
+                                    color={
+                                        isActive
+                                            ? isDarkMode
+                                                ? "#000"
+                                                : "#fff"
+                                            : isDarkMode
+                                            ? "#e6e6e6"
+                                            : "#555"
+                                    }
+                                    strokeWidth={1.9}
+                                />
+
+                                {isActive && (
+                                    <Typography
+                                        sx={{
+                                            fontSize: 14,
+                                            fontWeight: 600,
+                                            color: isDarkMode ? "#000" : "#fff",
+                                            letterSpacing: 0.3,
+                                            opacity: 1,
+                                            transition: "opacity 0.25s",
+                                        }}
+                                    >
+                                        {item.label}
+                                    </Typography>
+                                )}
+                            </Box>
                         </Box>
                     );
                 })}
